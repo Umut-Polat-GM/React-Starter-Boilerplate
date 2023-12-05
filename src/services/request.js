@@ -1,41 +1,49 @@
 function parseJSON(data) {
-  const formData = new FormData();
-  for (let [Key, Value] of Object.entries(data)) {
-    formData.append(Key, Value);
-  }
-  return formData;
+    const formData = new FormData();
+    for (const key in data) {
+        formData.append(key, data[key]);
+      }
+    return formData;
 }
 
 async function request(url, data = null, method = "GET", type = "FORM_DATA") {
-  const options = {
-    method,
-    headers: {
-      "Content-Type":
-        type === "JSON"
-          ? "application/json"
-          : "application/x-www-form-urlencoded",
-    },
-  };
+    const options = {
+        method,
+        headers: {
+            "X-API-KEY": "k27bc14a96f0445a-741a260a47dd3c7n",
+        },
+    };
 
-  if (data) {
-    options.body = type === "JSON" ? JSON.stringify(data) : parseJSON(data);
-  }
-
-  try {
-    const response = await fetch(url, options);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    if (type === "JSON") {
+        options.headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(data);
+    } else if (data) {
+        options.body = parseJSON(data);
     }
 
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
-    console.error("Hata oluştu:", error);
-    throw error;
-  }
+    try {
+        const response = await fetch(url, options);
+
+        if (!response.ok) {
+            const errorResponse = await response.text();
+            throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorResponse}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Hata oluştu:", error);
+        throw error;
+    }
 }
 
 export const get = (url) => request(url);
 export const post = (url, data) => request(url, data, "POST");
 export const postJSON = (url, data) => request(url, data, "POST", "JSON");
+export const put = (url, data) => request(url, data, "PUT");
+export const putJSON = (url, data) => request(url, data, "PUT", "JSON");
+export const del = (url) => request(url, null, "DELETE");
+export const delJSON = (url, data) => request(url, data, "DELETE", "JSON");
+export const patch = (url, data) => request(url, data, "PATCH");
+export const patchJSON = (url, data) => request(url, data, "PATCH", "JSON");
+export const head = (url) => request(url, null, "HEAD");
+export const headJSON = (url, data) => request(url, data, "HEAD", "JSON");
