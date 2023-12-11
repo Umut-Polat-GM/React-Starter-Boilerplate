@@ -2,17 +2,19 @@ function parseJSON(data) {
     const formData = new FormData();
     for (const key in data) {
         formData.append(key, data[key]);
-      }
+    }
     return formData;
 }
 
 async function request(url, data = null, method = "GET", type = "FORM_DATA") {
     const options = {
         method,
-        headers: {
-            "X-API-KEY": "k27bc14a96f0445a-741a260a47dd3c7n",
-        },
+        headers: {},
     };
+
+    if (localStorage.getItem("token")) {
+        options.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+    }
 
     if (type === "JSON") {
         options.headers["Content-Type"] = "application/json";
