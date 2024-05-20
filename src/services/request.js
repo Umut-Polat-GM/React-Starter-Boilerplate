@@ -26,12 +26,7 @@ async function request(url, data = null, method = "GET", type = "FORM_DATA") {
     try {
         const response = await fetch(url, options);
 
-        if (!response.ok) {
-            const errorResponse = await response.text();
-            throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorResponse}`);
-        }
-
-        return await response.json();
+        return response;
     } catch (error) {
         console.error("Hata oluştu:", error);
         throw error;
