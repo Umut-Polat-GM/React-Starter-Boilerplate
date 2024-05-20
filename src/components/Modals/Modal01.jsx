@@ -13,6 +13,7 @@ import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
 import { hideModal } from "../../store/modal/modalSlice";
 import animationData from "../../../public/json/Task.json";
+import { showNotification } from "../../store/notifications/notificationSlice";
 
 const Modal01 = () => {
     const [progress, setProgress] = useState(false);
@@ -35,9 +36,38 @@ const Modal01 = () => {
     const onSubmit = async (data) => {
         console.log(data);
         setProgress(true);
-        setTimeout(() => {
+        try {
+            const response = await fetch("https://jsonplaceholder.typicode.com/posts", data);
+            const result = await response.json();
+            console.log("response", response);
+            console.log("result", result);
+            if (response.ok) {
+                dispatch(
+                    showNotification({
+                        message: "Başarıyla Eklendi",
+                        type: "success",
+                    })
+                );
+            } else {
+                dispatch(
+                    showNotification({
+                        message: "Eklenirken Bir Hata Oluştu",
+                        type: "info",
+                    })
+                );
+            }
+        } catch (error) {
+            console.log("error", error);
+            dispatch(
+                showNotification({
+                    message: "Eklenirken Bir Hata Oluştu",
+                    type: "error",
+                })
+            );
+        } finally {
             setProgress(false);
-        }, 2000);
+            dispatch(hideModal());
+        }
     };
 
     useEffect(() => {
