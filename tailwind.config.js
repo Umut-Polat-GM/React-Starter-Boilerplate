@@ -2,12 +2,13 @@ import daisyUI from "daisyui";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [daisyUI],
-}
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    theme: {
+        extend: {
+            backgroundImage: {
+                banner: "url('/images/page-banner.png')",
+            },
+        },
+    },
+    plugins: [daisyUI],
+};
