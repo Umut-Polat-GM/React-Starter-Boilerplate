@@ -18,9 +18,8 @@ import { showNotification } from "../../store/notifications/notificationSlice";
 const Modal01 = () => {
     const [progress, setProgress] = useState(false);
     const dispatch = useDispatch();
-    const { open, type, updateShema } = useSelector((state) => state.modal);
+    const { type, updateShema } = useSelector((state) => state.modal);
 
-    // console.log("open", open);
     // console.log("type", type);
     // console.log("updateShema", updateShema);
 
@@ -84,7 +83,7 @@ const Modal01 = () => {
             <Modal
                 aria-labelledby="create-notes-modal-title"
                 aria-describedby="create-notes-modal-description"
-                open={open && type === "MODAL01"}
+                open={type === "MODAL01"}
                 closeAfterTransition
                 slots={{ backdrop: Backdrop }}
                 slotProps={{
@@ -93,7 +92,7 @@ const Modal01 = () => {
                     },
                 }}
             >
-                <Fade in={open}>
+                <Fade in={type === "MODAL01"}>
                     <Box sx={modalStyle} width={"50%"}>
                         <Box className="flex justify-between items-center">
                             <Typography
