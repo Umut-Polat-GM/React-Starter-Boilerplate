@@ -12,16 +12,16 @@ import Fade from "@mui/material/Fade";
 import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
 import { hideModal } from "../../store/modal/modalSlice";
-import animationData from "../../../public/json/Task.json";
+import animationData from "../../assets/json/Task.json";
 import { showNotification } from "../../store/notifications/notificationSlice";
 
 const Modal01 = () => {
     const [progress, setProgress] = useState(false);
     const dispatch = useDispatch();
-    const { type, updateShema } = useSelector((state) => state.modal);
+    const { type, updateSchema } = useSelector((state) => state.modal);
 
     // console.log("type", type);
-    // console.log("updateShema", updateShema);
+    // console.log("updateSchema", updateSchema);
 
     const {
         register,
@@ -70,13 +70,13 @@ const Modal01 = () => {
     };
 
     useEffect(() => {
-        if (type === "MODAL01" && updateShema !== null) {
+        if (type === "MODAL01" && updateSchema !== null) {
             reset({
-                title: updateShema?.title,
-                description: updateShema?.description,
+                title: updateSchema?.title,
+                description: updateSchema?.description,
             });
         }
-    }, [type, updateShema, reset]);
+    }, [type, updateSchema, reset]);
 
     return (
         <Box>

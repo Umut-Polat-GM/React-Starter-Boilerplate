@@ -4,16 +4,16 @@ const modalSlice = createSlice({
     name: "modal",
     initialState: {
         type: "",
-        updateShema: {},
+        updateSchema: {},
     },
     reducers: {
         showModal: (state, action) => {
             state.type = action.payload.type;
-            state.updateShema = action.payload.updateShema;
+            state.updateSchema = action.payload.updateSchema;
         },
         hideModal: (state) => {
             state.type = "";
-            state.updateShema = {};
+            state.updateSchema = {};
         },
     },
 });

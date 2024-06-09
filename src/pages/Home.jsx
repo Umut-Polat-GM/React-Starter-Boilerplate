@@ -9,7 +9,7 @@ const Home = () => {
         dispatch(
             showModal({
                 type: "MODAL01",
-                // updateShema: {
+                // updateSchema: {
                 //     title: "deneme",
                 //     description: "description",
                 // },
@@ -20,7 +20,7 @@ const Home = () => {
         dispatch(
             showModal({
                 type: "MODAL01",
-                updateShema: {
+                updateSchema: {
                     title: "deneme",
                     description: "description",
                 },
